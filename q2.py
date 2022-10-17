@@ -1,10 +1,7 @@
-corr = [0.080, 0.015, 0.030, 0.040, 0.130, 0.020, 0.015, 0.060, 0.065, 0.005, 0.005, 0.035, 
+prob = [0.080, 0.015, 0.030, 0.040, 0.130, 0.020, 0.015, 0.060, 0.065, 0.005, 0.005, 0.035, 
 0.030, 0.070, 0.080, 0.020, 0.002, 0.065, 0.060, 0.090, 0.030, 0.010,   0.015, 0.005, 0.020, 0.002]
 
-encrypt_texts = ['XTKYBFWJXJHZWNYD', 'KCECMKS']
-
-for cipher_text in encrypt_texts:
-
+def caesar_attack(cipher_text):
     print("\n")
     phi, freq = [0]*26, [0]*26
     cipher_text = cipher_text.lower() #make all letters lowercase
@@ -18,7 +15,7 @@ for cipher_text in encrypt_texts:
     for i in range(0, 26):
         for char in cipher_text:
             char_index = ord(char)-ord('a')
-            phi[i] = phi[i] + freq[char_index]*corr[char_index-i]
+            phi[i] = phi[i] + freq[char_index]*prob[char_index-i]
     
     #sort the phi array in descending order and print the top 5 possible plain texts
     sorted_phi = sorted([[val, index] for index, val in enumerate(phi)], key=lambda x: x[0], reverse=True)
@@ -32,3 +29,8 @@ for cipher_text in encrypt_texts:
             text = text + new_char
         
         print(f"With shift - {shift_idx} Plain Text - {text}")
+
+if __name__=="__main__":
+    encrypt_texts = ['XTKYBFWJXJHZWNYD', 'KCECMKS']
+    for text in encrypt_texts:
+        caesar_attack(text)
