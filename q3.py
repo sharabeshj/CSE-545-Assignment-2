@@ -19,8 +19,8 @@ def encrypt(string, key):
     cipher_text = []
 
     for i in range(len(string)):
-        x = (ord(string[i]) + ord(key[i])) % 26
-        x += ord('A')
+        x = (ord(string[i]) + ord(key[i])) % 128
+        # x += ord('A')
 
         cipher_text.append(chr(x))
 
@@ -29,8 +29,8 @@ def encrypt(string, key):
 def decrypt(cipher_text, key):
     orig_text = []
     for i in range(len(cipher_text)):
-        x = (ord(cipher_text[i]) - ord(key[i]) + 26) % 26
-        x += ord('A')
+        x = (ord(cipher_text[i]) - ord(key[i]) + 128) % 128
+        # x += ord('A')
         orig_text.append(chr(x))
 
     return "".join(orig_text)
@@ -41,6 +41,6 @@ if __name__ == "__main__":
 
     genKey = generateKey(string, key)
     cipher_text = encrypt(string, genKey)
-    print("Encrypted string: ", cipher_text)
+    print("Encrypted string: ", repr(cipher_text))
 
     print("Decrypted string:" , decrypt(cipher_text, genKey))
